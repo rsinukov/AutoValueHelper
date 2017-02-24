@@ -1,0 +1,11 @@
+# Java class files
+*.class
+
+# generated files
+out/
+
+# Mac OS system files
+*.DS_Store
+
+.idea/*
+*.iml

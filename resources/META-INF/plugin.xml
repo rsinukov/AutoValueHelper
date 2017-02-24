@@ -1,0 +1,21 @@
+<idea-plugin version="2" url="https://todo.com">
+  <id>AutoValueBuilder</id>
+  <name>AutoValueBuilder</name>
+  <version>0.1</version>
+
+  <description>Plugin for generating AutoValue Builders</description>
+
+  <vendor email="rxsinukov@gmail.com" url="https://todo.com">Rustam Sinukov</vendor>
+
+  <!-- Intellij 12+ -->
+  <idea-version since-build="123"/>
+
+  <actions>
+    <action id="AutoValueBuilder.generate"
+            class="org.jetbrains.plugins.autovaluehelper.AutoValueBuilderAction"
+            text="AutoValueBuilder..." description="Generate AutoValue Builder">
+      <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift alt B"/>
+    </action>
+  </actions>
+</idea-plugin>
