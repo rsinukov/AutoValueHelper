@@ -1,11 +1,11 @@
-<idea-plugin version="2" url="https://todo.com">
+<idea-plugin version="2" url="https://github.com/rsinukov/AutoValueHelper">
   <id>AutoValueHelper</id>
   <name>AutoValue Heper</name>
   <version>0.9</version>
 
   <description>Plugin for generating AutoValue Builders and Create methods</description>
 
-  <vendor email="rxsinukov@gmail.com" url="https://todo.com">Rustam Sinukov</vendor>
+  <vendor email="rxsinukov@gmail.com" url="https://github.com/rsinukov">Rustam Sinukov</vendor>
 
   <!-- Intellij 12+ -->
   <idea-version since-build="123"/>
