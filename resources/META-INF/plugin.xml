@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://todo.com">
   <id>AutoValueHelper</id>
   <name>AutoValue Heper</name>
-  <version>0.1</version>
+  <version>0.9</version>
 
   <description>Plugin for generating AutoValue Builders and Create methods</description>
 
@@ -13,13 +13,13 @@
   <actions>
     <action id="AutoValueBuilder.generate"
             class="org.jetbrains.plugins.autovaluehelper.builder.AutoValueBuilderAction"
-            text="AutoValue Builder..." description="Generate AutoValue Builder class">
+            text="AutoValue Builder" description="Generate AutoValue Builder class">
       <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt B"/>
     </action>
     <action id="AutoValueCreate.generate"
             class="org.jetbrains.plugins.autovaluehelper.creator.AutoValueCreateAction"
-            text="AutoValue Create..." description="Generate AutoValue create method">
+            text="AutoValue Create" description="Generate AutoValue create method">
       <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt C"/>
     </action>
