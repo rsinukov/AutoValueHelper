@@ -12,10 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static org.jetbrains.plugins.autovaluehelper.AutoValueCollectorUtils.collectMethods;
+import static org.jetbrains.plugins.autovaluehelper.AutoValueUtils.collectMethods;
 
-class AutoValueBuilderHandler implements LanguageCodeInsightActionHandler {
-
+public abstract class AutoValueBaseHelperHandler implements LanguageCodeInsightActionHandler {
     @Override
     public boolean isValidFor(@NotNull Editor editor, @NotNull PsiFile file) {
         final PsiClass clazz = AutoValueUtils.getStaticOrTopLevelClass(file, editor);
@@ -45,7 +44,7 @@ class AutoValueBuilderHandler implements LanguageCodeInsightActionHandler {
 
         final List<PsiMethodMember> existingFields = collectMethods(file, editor);
         if (existingFields != null && !existingFields.isEmpty()) {
-            AutoValueBuilderGenerator.generate(project, editor, file, existingFields);
+            generate(project, editor, file, existingFields);
         }
     }
 
@@ -67,4 +66,11 @@ class AutoValueBuilderHandler implements LanguageCodeInsightActionHandler {
         }
         return false;
     }
+
+    protected abstract void generate(
+            @NotNull Project project,
+            @NotNull Editor editor,
+            @NotNull PsiFile file,
+            @NotNull List<PsiMethodMember> existingFields
+    );
 }

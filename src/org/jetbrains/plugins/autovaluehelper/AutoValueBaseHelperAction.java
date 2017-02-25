@@ -7,10 +7,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
-public class AutoValueBuilderAction extends BaseCodeInsightAction {
+public class AutoValueBaseHelperAction extends BaseCodeInsightAction {
 
     @NotNull
-    private final AutoValueBuilderHandler handler = new AutoValueBuilderHandler();
+    private final AutoValueBaseHelperHandler handler;
+
+    protected AutoValueBaseHelperAction(@NotNull AutoValueBaseHelperHandler handler) {
+        this.handler = handler;
+    }
 
     @Override
     @NotNull

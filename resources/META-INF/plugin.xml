@@ -1,9 +1,9 @@
 <idea-plugin version="2" url="https://todo.com">
-  <id>AutoValueBuilder</id>
-  <name>AutoValueBuilder</name>
+  <id>AutoValueHelper</id>
+  <name>AutoValue Heper</name>
   <version>0.1</version>
 
-  <description>Plugin for generating AutoValue Builders</description>
+  <description>Plugin for generating AutoValue Builders and Create methods</description>
 
   <vendor email="rxsinukov@gmail.com" url="https://todo.com">Rustam Sinukov</vendor>
 
@@ -12,10 +12,16 @@
 
   <actions>
     <action id="AutoValueBuilder.generate"
-            class="org.jetbrains.plugins.autovaluehelper.AutoValueBuilderAction"
-            text="AutoValueBuilder..." description="Generate AutoValue Builder">
+            class="org.jetbrains.plugins.autovaluehelper.builder.AutoValueBuilderAction"
+            text="AutoValue Builder..." description="Generate AutoValue Builder class">
       <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt B"/>
+    </action>
+    <action id="AutoValueCreate.generate"
+            class="org.jetbrains.plugins.autovaluehelper.creator.AutoValueCreateAction"
+            text="AutoValue Create..." description="Generate AutoValue create method">
+      <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift alt C"/>
     </action>
   </actions>
 </idea-plugin>
