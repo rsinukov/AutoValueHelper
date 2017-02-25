@@ -63,6 +63,7 @@ class AutoValueCreateGenerator extends AutoValueBaseHelperGenerator {
                 .createMethod("create", psiElementFactory.createType(targetClass));
         createMethod.getModifierList().addAnnotation(NONNULL);
         createMethod.getModifierList().setModifierProperty(PsiModifier.PUBLIC, true);
+        createMethod.getModifierList().setModifierProperty(PsiModifier.STATIC, true);
 
         final StringBuilder parametersList = new StringBuilder();
         for (PsiMethodMember member : selectedMethods) {

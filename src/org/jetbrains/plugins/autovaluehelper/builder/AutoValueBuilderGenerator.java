@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 class AutoValueBuilderGenerator extends AutoValueBaseHelperGenerator {
 
     private static final String BUILDER_CLASS_NAME = "Builder";
+    public static final String BUILD_METHOD_NAME = "build";
 
     private final PsiFile file;
     private final Editor editor;
@@ -56,20 +57,19 @@ class AutoValueBuilderGenerator extends AutoValueBaseHelperGenerator {
         addMethod(targetClass, null, newBuilderMethod);
 
         // builder methods
-        PsiElement lastAddedElement = null;
         for (final PsiMethodMember member : selectedMethods) {
             final PsiMethod setterMethod = generateBuilderSetter(builderType, member);
-            lastAddedElement = addMethod(builderClass, lastAddedElement, setterMethod);
+            addMethod(builderClass, null, setterMethod);
         }
 
         // builder.build() method
         final PsiMethod buildMethod = generateBuildMethod(targetClass);
-        addMethod(builderClass, lastAddedElement, buildMethod);
+        addMethod(builderClass, null, buildMethod);
 
         deleteUnusedMethods(builderClass);
 
         JavaCodeStyleManager.getInstance(project).shortenClassReferences(file);
-        CodeStyleManager.getInstance(project).reformat(targetClass);
+        CodeStyleManager.getInstance(project).reformat(builderClass);
     }
 
     private PsiMethod generateBuilderMethod(@NotNull PsiClass targetClass, @NotNull PsiType builderType) {
@@ -120,7 +120,7 @@ class AutoValueBuilderGenerator extends AutoValueBaseHelperGenerator {
     @NotNull
     private PsiMethod generateBuildMethod(@NotNull final PsiClass targetClass) {
         final PsiType targetClassType = psiElementFactory.createType(targetClass);
-        final PsiMethod buildMethod = psiElementFactory.createMethod("build", targetClassType);
+        final PsiMethod buildMethod = psiElementFactory.createMethod(BUILD_METHOD_NAME, targetClassType);
 
         buildMethod.getModifierList().addAnnotation(NONNULL);
         buildMethod.getModifierList().setModifierProperty(PsiModifier.PUBLIC, true);
@@ -149,6 +149,7 @@ class AutoValueBuilderGenerator extends AutoValueBaseHelperGenerator {
         final PsiModifierList modifierList = builderClass.getModifierList();
         assert modifierList != null;
         modifierList.setModifierProperty(PsiModifier.PUBLIC, true);
+        modifierList.setModifierProperty(PsiModifier.STATIC, true);
         modifierList.setModifierProperty(PsiModifier.ABSTRACT, true);
         modifierList.addAnnotation(AUTO_VALUE_BUILDER);
         return builderClass;
@@ -159,7 +160,7 @@ class AutoValueBuilderGenerator extends AutoValueBaseHelperGenerator {
                 .map(methodMember -> ((PsiMethod) methodMember.getPsiElement()).getName())
                 .collect(Collectors.toSet());
         for (PsiMethod method : builderClass.getMethods()) {
-            if (!methodNamesToStore.contains(method.getName())) {
+            if (!methodNamesToStore.contains(method.getName()) && !BUILD_METHOD_NAME.equals(method.getName())) {
                 method.delete();
             }
         }
