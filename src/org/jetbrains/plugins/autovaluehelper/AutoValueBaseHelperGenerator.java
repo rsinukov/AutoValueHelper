@@ -3,13 +3,11 @@ package org.jetbrains.plugins.autovaluehelper;
 import com.intellij.codeInsight.generation.PsiMethodMember;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import com.intellij.psi.util.PsiUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 
 public abstract class AutoValueBaseHelperGenerator implements Runnable {
 
@@ -77,5 +75,17 @@ public abstract class AutoValueBaseHelperGenerator implements Runnable {
         }
         classNameBuilder.insert(0, "AutoValue");
         return classNameBuilder.toString();
+    }
+
+    protected void setSameVisibility(@NotNull PsiMember from, @NotNull PsiMember to) {
+        if (from.hasModifierProperty(PsiModifier.PUBLIC)) {
+            PsiUtil.setModifierProperty(to, PsiModifier.PUBLIC, true);
+        } else if (from.hasModifierProperty(PsiModifier.PROTECTED)) {
+            PsiUtil.setModifierProperty(to, PsiModifier.PROTECTED, true);
+        } else if (from.hasModifierProperty(PsiModifier.PRIVATE)) {
+            PsiUtil.setModifierProperty(to, PsiModifier.PRIVATE, true);
+        } else if (from.hasModifierProperty(PsiModifier.PACKAGE_LOCAL)) {
+            PsiUtil.setModifierProperty(to, PsiModifier.PACKAGE_LOCAL, true);
+        }
     }
 }

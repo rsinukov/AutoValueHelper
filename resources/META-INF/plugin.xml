@@ -3,7 +3,7 @@
   <name>AutoValue Heper</name>
   <version>0.9</version>
 
-  <description>Plugin for generating AutoValue Builders and Create methods</description>
+  <description>Plugin for generating AutoValue Builder interfaces and Create methods</description>
 
   <vendor email="rxsinukov@gmail.com" url="https://github.com/rsinukov">Rustam Sinukov</vendor>
 
@@ -13,7 +13,7 @@
   <actions>
     <action id="AutoValueBuilder.generate"
             class="org.jetbrains.plugins.autovaluehelper.builder.AutoValueBuilderAction"
-            text="AutoValue Builder" description="Generate AutoValue Builder class">
+            text="AutoValue Builder" description="Generate AutoValue Builder interface">
       <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup2"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt B"/>
     </action>
