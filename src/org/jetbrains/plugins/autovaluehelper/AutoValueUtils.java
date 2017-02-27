@@ -9,8 +9,7 @@ import com.intellij.psi.util.TypeConversionUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AutoValueUtils {
 
@@ -44,13 +43,24 @@ public class AutoValueUtils {
 
         final List<PsiMethodMember> allMethods = new ArrayList<>();
 
-        PsiClass classToExtractMethodsFrom = clazz;
-        while (classToExtractMethodsFrom != null) {
-            allMethods.addAll(collectMethodsInClass(classToExtractMethodsFrom));
+        final Queue<PsiClass> classesToExtractMethodsFrom = new LinkedList<>();
+        classesToExtractMethodsFrom.add(clazz);
+        while (!classesToExtractMethodsFrom.isEmpty()) {
+            final PsiClass currentClass = classesToExtractMethodsFrom.poll();
+            allMethods.addAll(collectMethodsInClass(currentClass));
 
-            classToExtractMethodsFrom = classToExtractMethodsFrom.getSuperClass();
+            final PsiClass[] interfaces = currentClass.getInterfaces();
+            for (PsiClass interfaze : interfaces) {
+                classesToExtractMethodsFrom.add(interfaze);
+            }
+
+            final PsiClass superClass = currentClass.getSuperClass();
+            if (superClass != null) {
+                classesToExtractMethodsFrom.add(superClass);
+            }
         }
 
+        Collections.reverse(allMethods);
         return allMethods;
     }
 
