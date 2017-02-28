@@ -47,7 +47,7 @@ public class AutoValueUtils {
         classesToExtractMethodsFrom.add(clazz);
         while (!classesToExtractMethodsFrom.isEmpty()) {
             final PsiClass currentClass = classesToExtractMethodsFrom.poll();
-            allMethods.addAll(collectMethodsInClass(currentClass));
+            allMethods.addAll(0, collectMethodsInClass(currentClass));
 
             final PsiClass[] interfaces = currentClass.getInterfaces();
             for (PsiClass interfaze : interfaces) {
@@ -60,7 +60,6 @@ public class AutoValueUtils {
             }
         }
 
-        Collections.reverse(allMethods);
         return allMethods;
     }
 
