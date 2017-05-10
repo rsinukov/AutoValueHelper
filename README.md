@@ -19,6 +19,9 @@ Use `Shift+Alt+B` for Builder interface, `Shift+Alt+C` for Create method or `Alt
 When generating when code already exists, the plugin will try to update it.
 It will add missing methods and parameters and remove unused ones.
 
+### TODO
+https://github.com/rsinukov/AutoValueHelper/issues
+
 ### Thanks
 
 Based on [InnerBuilder plugin](https://github.com/analytically/innerbuilder).
